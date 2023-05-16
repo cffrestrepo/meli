@@ -1,6 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+ext {
+    room_version = "2.5.1"
+    lifecycle_components = "2.4.0"
+    coroutines = "1.6.0"
+    junit = "4.13.2"
 }
 
 android {
@@ -27,6 +35,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -36,14 +47,32 @@ android {
 }
 
 dependencies {
-
+    //Base
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-    testImplementation 'junit:junit:4.13.2'
+
+    // Room data base
+    implementation("androidx.room:room-ktx:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_components"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_components"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_components"
+
+    // Kotlin components
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+
+
+    // Test
+    testImplementation "junit:junit:$junit"
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

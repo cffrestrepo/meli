@@ -1,4 +1,4 @@
-package com.test.meli
+package com.test.meli.presentation
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -9,7 +9,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.lifecycleScope
+import com.test.meli.R
+import com.test.meli.data.local.database.MarketDb
+import com.test.meli.data.local.entities.ProductEntity
 import com.test.meli.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +36,11 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+
+        val meli = MarketDb.getDatabase(this).productDao()
+        lifecycleScope.launch {
+            meli.insert(ProductEntity(name = "seis"))
         }
     }
 
