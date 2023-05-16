@@ -16,27 +16,4 @@ import com.test.meli.data.local.entities.ProductEntity
 abstract class MarketDb : RoomDatabase() {
 
     abstract fun productDao(): ProductDao
-
-    companion object {
-        @Volatile
-        private var INSTANCE: MarketDb? = null
-
-        fun getDatabase(context: Context): MarketDb {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    MarketDb::class.java,
-                    NAME_DATA_BASE
-                )
-                    // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
-                    .fallbackToDestructiveMigration()
-                    .build()
-
-                INSTANCE = instance
-                // return instance
-                instance
-            }
-        }
-    }
 }
