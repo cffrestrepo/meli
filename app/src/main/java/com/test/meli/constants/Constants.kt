@@ -6,5 +6,6 @@ class Constants {
         const val VERSION_DATA_BASE = 2
         const val TABLE_NAME_PRODUCT= "product"
         const val NAME_DATA_BASE = "meli_database"
+        const val BASE_URL = "https://api.mercadolibre.com/"
     }
 }
