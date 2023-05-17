@@ -12,6 +12,7 @@ ext {
     junit = "4.13.2"
     hilt_version = "2.40.1"
     hilt_compiler = "1.0.0"
+    retrofit_version = "2.9.0"
 }
 
 android {
@@ -76,6 +77,10 @@ dependencies {
     // Kotlin components
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Test
     testImplementation "junit:junit:$junit"
