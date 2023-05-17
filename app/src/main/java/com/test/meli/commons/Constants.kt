@@ -1,4 +1,4 @@
-package com.test.meli.constants
+package com.test.meli.commons
 
 class Constants {
 
@@ -7,5 +7,11 @@ class Constants {
         const val TABLE_NAME_PRODUCT= "product"
         const val NAME_DATA_BASE = "meli_database"
         const val BASE_URL = "https://api.mercadolibre.com/"
+
+        // RED
+        const val BAD_REQUEST = 400
+        const val INTERNAL_SERVER = 500
+        const val UNAUTHORIZED = 401
+        const val NOT_FOUND = 404
     }
 }

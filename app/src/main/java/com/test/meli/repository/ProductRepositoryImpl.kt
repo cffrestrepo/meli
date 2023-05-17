@@ -1,5 +1,6 @@
 package com.test.meli.repository
 
+import android.util.Log
 import com.test.meli.data.local.dao.ProductDao
 import com.test.meli.data.local.entities.ProductEntity
 import com.test.meli.data.remote.sources.ProductDataRemoteSource
@@ -17,6 +18,7 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun insert(product: ProductEntity) {
         productSource.insert(product)
-        productDataRemoteSource.getProductsBySearch()
+        val result = productDataRemoteSource.getProductsBySearch()
+        Log.d("success", "correcto")
     }
 }

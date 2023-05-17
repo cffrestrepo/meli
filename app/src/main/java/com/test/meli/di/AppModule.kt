@@ -2,8 +2,8 @@ package com.test.meli.di
 
 import android.content.Context
 import androidx.room.Room
-import com.test.meli.constants.Constants
-import com.test.meli.constants.Constants.Companion.BASE_URL
+import com.test.meli.commons.Constants
+import com.test.meli.commons.Constants.Companion.BASE_URL
 import com.test.meli.data.local.database.MarketDb
 import com.test.meli.data.remote.ProductDataRemoteImpl
 import com.test.meli.data.remote.RetrofitServicesInterface

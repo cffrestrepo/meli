@@ -1,28 +1,39 @@
 package com.test.meli.data.remote
 
-import android.util.Log
+import com.test.meli.commons.Either
+import com.test.meli.data.network.ErrorFactory
+import com.test.meli.data.network.HandledError
 import com.test.meli.data.remote.response.LookFor
 import com.test.meli.data.remote.sources.ProductDataRemoteSource
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.suspendCancellableCoroutine
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class ProductDataRemoteImpl @Inject constructor(private val retrofitServicesInterface: RetrofitServicesInterface) :
+class ProductDataRemoteImpl @Inject constructor(
+    private val retrofitServicesInterface: RetrofitServicesInterface,
+    private val errorFactory: ErrorFactory
+) :
     ProductDataRemoteSource {
 
-    override fun getProductsBySearch() {
-        val call: Call<LookFor>? =
-            retrofitServicesInterface.getProductsBySearch("Motorola%20G6#json")
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override suspend fun getProductsBySearch(): Either<HandledError, LookFor?> {
+        return suspendCancellableCoroutine { continuation ->
+            val call: Call<LookFor>? =
+                retrofitServicesInterface.getProductsBySearch("Motorola%20G6#json")
 
-        call?.enqueue(object : Callback<LookFor> {
-            override fun onFailure(call: Call<LookFor>, t: Throwable) {
-                Log.d("Error", "Error")
-            }
+            call?.enqueue(object : Callback<LookFor> {
+                override fun onFailure(call: Call<LookFor>, throwable: Throwable) {
+                    val handledError = errorFactory.handledError(throwable)
+                    continuation.resume(Either.Left(handledError), onCancellation = { })
+                }
 
-            override fun onResponse(call: Call<LookFor>, response: Response<LookFor>) {
-                Log.d("Success", "Success")
-            }
-        })
+                override fun onResponse(call: Call<LookFor>, response: Response<LookFor>) {
+                    continuation.resume(Either.Right(response.body()), onCancellation = { })
+                }
+            })
+        }
     }
 }
