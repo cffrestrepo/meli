@@ -10,17 +10,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.test.meli.R
-import com.test.meli.data.local.database.MarketDb
-import com.test.meli.data.local.entities.ProductEntity
 import com.test.meli.databinding.ActivityMainBinding
-import com.test.meli.repository.ProductRepositoryImpl
-import com.test.meli.repository.contracts.ProductRepositorySource
-import com.test.meli.usecases.ProductInsertUseCase
+import com.test.meli.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

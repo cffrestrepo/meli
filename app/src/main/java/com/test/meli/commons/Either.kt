@@ -11,10 +11,13 @@ sealed class Either<out ErrorType, out ResultType> {
         }
     }
 
-    fun <NewResultType> map(functionRight: (ResultType) -> NewResultType): Either<ErrorType, NewResultType> {
+    suspend fun <T> foldSuspendable(
+        functionLeft: suspend (ErrorType) -> T,
+        functionRight: suspend (ResultType) -> T
+    ): T {
         return when (this) {
-            is Left -> this
-            is Right -> Right(functionRight(this.value))
+            is Left -> functionLeft(error)
+            is Right -> functionRight(value)
         }
     }
 }

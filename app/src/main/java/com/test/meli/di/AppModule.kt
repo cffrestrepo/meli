@@ -10,6 +10,7 @@ import com.test.meli.data.remote.RetrofitServicesInterface
 import com.test.meli.data.remote.sources.ProductDataRemoteSource
 import com.test.meli.repository.ProductRepositoryImpl
 import com.test.meli.repository.contracts.ProductRepositorySource
+import com.test.meli.repository.mappers.ProductMapper
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -17,6 +18,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -50,6 +53,13 @@ object AppModule {
     @Provides
     fun getRetrofitServiceInterface(retrofit: Retrofit): RetrofitServicesInterface =
         retrofit.create(RetrofitServicesInterface::class.java)
+
+    @Provides
+    fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
+    fun providesProductMapper(): ProductMapper = ProductMapper
+
 }
 
 @Module

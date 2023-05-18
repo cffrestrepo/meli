@@ -14,5 +14,8 @@ interface ProductDao {
     fun getAll(): List<ProductEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(product: ProductEntity)
+    suspend fun insert(products: List<ProductEntity>)
+
+    @Query("DELETE FROM $TABLE_NAME_PRODUCT")
+    suspend fun delete()
 }
