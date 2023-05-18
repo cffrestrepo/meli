@@ -19,10 +19,10 @@ class ProductDataRemoteImpl @Inject constructor(
     ProductDataRemoteSource {
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getProductsBySearch(): Either<HandledError, LookFor?> {
+    override suspend fun getProductsBySearch(query: String): Either<HandledError, LookFor?> {
         return suspendCancellableCoroutine { continuation ->
             val call: Call<LookFor>? =
-                retrofitServicesInterface.getProductsBySearch("Motorola%20G6#json")
+                retrofitServicesInterface.getProductsBySearch(query)
 
             call?.enqueue(object : Callback<LookFor> {
                 override fun onFailure(call: Call<LookFor>, throwable: Throwable) {

@@ -4,8 +4,11 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.test.meli.commons.Constants.Companion.BAD_REQUEST
 import com.test.meli.commons.Constants.Companion.INTERNAL_SERVER
+import com.test.meli.commons.Constants.Companion.NET_WORK_CONNECTION
 import com.test.meli.commons.Constants.Companion.NOT_FOUND
 import com.test.meli.commons.Constants.Companion.UNAUTHORIZED
+import com.test.meli.commons.Constants.Companion.UNEXPECTED
+import com.test.meli.commons.Constants.Companion.UNKNOWN
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -16,11 +19,14 @@ class ErrorFactory @Inject constructor() {
         return when (throwable) {
             is IOException -> {
                 HandledError.NetworkConnection(
-                    "No hay conexión a internet"
+                    "No hay conexión a internet", code = NET_WORK_CONNECTION
                 )
             }
             is HttpException -> extractHttpExceptions(throwable)
-            else -> HandledError.UnExpected("Ups, ha ocurrido un error inesperado")
+            else -> HandledError.UnExpected(
+                "Ups, ha ocurrido un error inesperado",
+                code = UNEXPECTED
+            )
         }
     }
 
@@ -33,19 +39,19 @@ class ErrorFactory @Inject constructor() {
 
         return when (httpError.errorCode) {
             BAD_REQUEST ->
-                HandledError.BadRequest(httpError.errorMessage)
+                HandledError.BadRequest(httpError.errorMessage, code = BAD_REQUEST)
 
             INTERNAL_SERVER ->
-                HandledError.InternalServerError(httpError.errorMessage)
+                HandledError.InternalServerError(httpError.errorMessage, code = INTERNAL_SERVER)
 
             UNAUTHORIZED ->
-                HandledError.UnAuthorized(httpError.errorMessage)
+                HandledError.UnAuthorized(httpError.errorMessage, code = UNAUTHORIZED)
 
             NOT_FOUND ->
-                HandledError.ResourceNotFound(httpError.errorMessage)
+                HandledError.ResourceNotFound(httpError.errorMessage, code = NOT_FOUND)
 
             else ->
-                HandledError.Unknown(httpError.errorMessage)
+                HandledError.Unknown(httpError.errorMessage, code = UNKNOWN)
         }
     }
 }

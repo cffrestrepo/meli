@@ -6,5 +6,5 @@ data class LookFor(
     @SerializedName("query")
     val query: String = "",
     @SerializedName("results")
-    val results: ArrayList<Results>? = null
+    val results: List<Results>? = null
 )

@@ -6,5 +6,5 @@ import com.test.meli.data.remote.response.LookFor
 
 interface ProductDataRemoteSource {
 
-    suspend fun getProductsBySearch(): Either<HandledError, LookFor?>
+    suspend fun getProductsBySearch(query: String): Either<HandledError, LookFor?>
 }

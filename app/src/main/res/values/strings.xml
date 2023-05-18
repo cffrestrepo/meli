@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">meli</string>
+    <string name="app_name">Meli</string>
     <string name="action_permissions">Permisos</string>
     <string name="search_fragment_label">Search Fragment</string>
     <string name="products_fragment_label">Products Fragment</string>
