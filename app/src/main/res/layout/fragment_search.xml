@@ -33,16 +33,32 @@
         app:layout_constraintTop_toBottomOf="@id/search_view"
         tools:visibility="visible" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_products"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/title_results_view_start"
+        android:layout_marginTop="@dimen/title_results_view_top"
+        android:layout_marginBottom="@dimen/title_results_view_top"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_preview_result"
+        tools:listitem="@layout/holder_product"
+        tools:visibility="visible" />
+
     <ImageView
         android:id="@+id/img_whit_out_results"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerInside"
-        android:src="@drawable/with_out_results"
+        android:src="@drawable/baseline_content_paste_search_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_preview_result" />
+        app:layout_constraintTop_toBottomOf="@id/search_view"
+        app:tint="@color/gray_icon" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_indicator"

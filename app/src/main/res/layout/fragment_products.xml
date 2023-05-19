@@ -9,25 +9,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_products"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toTopOf="@id/button_detail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/holder_product" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_indicator"

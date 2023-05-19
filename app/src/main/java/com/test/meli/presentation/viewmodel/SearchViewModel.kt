@@ -24,6 +24,9 @@ class SearchViewModel @Inject constructor(
             is SearchEvents.SearchEvent -> {
                 searchProducts(event.query)
             }
+            SearchEvents.InactiveNavigateToProductsEvent -> {
+                setInactiveNavigateToProducts()
+            }
         }
     }
 
@@ -34,7 +37,7 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             val result = getAllProductUseCase.execute(Unit)
             result.fold(functionLeft = { _ ->
-                // TODO this event should be flagged in crashlitycs
+                // TODO() this event should be flagged in crashlitycs
             }, functionRight = { data ->
                 setState(SearchScreenStates.HistoryProductsLoadedState(data))
             })
@@ -50,8 +53,12 @@ class SearchViewModel @Inject constructor(
                 setState(SearchScreenStates.HandledErrorState(error))
             }, functionRight = { success ->
                 setState(SearchScreenStates.LoadingState(false))
-                setState(SearchScreenStates.DataLoadedState(success))
+                setState(SearchScreenStates.NavigateToProductsState(success))
             })
         }
+    }
+
+    private fun setInactiveNavigateToProducts() {
+        setState(SearchScreenStates.NavigateToProductsState(false))
     }
 }
