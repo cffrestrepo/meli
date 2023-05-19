@@ -25,17 +25,19 @@ class ProductRepositoryImpl @Inject constructor(
 ) :
     ProductRepositorySource {
     override suspend fun getAll(): Either<HandledError, List<ResultsModel>> {
-        return try {
-            val productsEntity = productSource.getAll()
-            val productsModel = productMapper.productEntityToProductModel(productsEntity)
-            Either.Right(productsModel)
-        } catch (ex: java.lang.Exception) {
-            Either.Left(
-                HandledError.UnExpected(
-                    ex.message ?: UNEXPECTED_MESSAGE,
-                    code = UNEXPECTED
+        return withContext(dispatcher) {
+            try {
+                val productsEntity = productSource.getAll()
+                val productsModel = productMapper.productEntityToProductModel(productsEntity)
+                Either.Right(productsModel)
+            } catch (ex: java.lang.Exception) {
+                Either.Left(
+                    HandledError.UnExpected(
+                        ex.message ?: UNEXPECTED_MESSAGE,
+                        code = UNEXPECTED
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -66,17 +68,19 @@ class ProductRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertAll(products: List<ProductEntity>): Either<HandledError, Boolean> {
-        return try {
-            productSource.delete()
-            productSource.insert(products)
-            Either.Right(true)
-        } catch (ex: java.lang.Exception) {
-            Either.Left(
-                HandledError.UnExpected(
-                    ex.message ?: UNEXPECTED_MESSAGE,
-                    code = UNEXPECTED
+        return withContext(dispatcher) {
+            try {
+                productSource.delete()
+                productSource.insert(products)
+                Either.Right(true)
+            } catch (ex: java.lang.Exception) {
+                Either.Left(
+                    HandledError.UnExpected(
+                        ex.message ?: UNEXPECTED_MESSAGE,
+                        code = UNEXPECTED
+                    )
                 )
-            )
+            }
         }
     }
 }
