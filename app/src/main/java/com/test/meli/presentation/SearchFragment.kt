@@ -6,29 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.test.meli.R
-import com.test.meli.data.network.HandledError
 import com.test.meli.databinding.FragmentSearchBinding
 import com.test.meli.presentation.events.SearchEvents
 import com.test.meli.presentation.states.SearchScreenStates
 import com.test.meli.presentation.viewmodel.SearchViewModel
 import com.test.meli.repository.models.ResultsModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class SearchFragment : FragmentBase() {
 
     private lateinit var binding: FragmentSearchBinding
     lateinit var viewModel: SearchViewModel
-
-    @Inject
-    lateinit var materialAlertDialogBuilder: MaterialAlertDialogBuilder
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,45 +59,6 @@ class SearchFragment : Fragment() {
 
     private fun loadProductsPreviewSearch(data: List<ResultsModel>) {
 
-    }
-
-    private fun handledError(handledError: HandledError) {
-        val message = when (handledError) {
-            is HandledError.BadRequest -> {
-                // TODO send event to analytics, make flow decisions, retries, other navigation, etc.
-                handledError.message + ": " + handledError.code
-            }
-            is HandledError.InternalServerError -> {
-                // TODO send event to analytics, make flow decisions, retries, other navigation, etc.
-                handledError.message + ": " + handledError.code
-            }
-            is HandledError.NetworkConnection -> {
-                // TODO send event to analytics, make flow decisions, retries, other navigation, etc.
-                handledError.message + ": " + handledError.code
-            }
-            is HandledError.ResourceNotFound -> {
-                // TODO send event to analytics, make flow decisions, retries, other navigation, etc.
-                handledError.message + ": " + handledError.code
-            }
-            is HandledError.UnAuthorized -> {
-                // TODO send event to analytics, make flow decisions, retries, other navigation, etc.
-                handledError.message + ": " + handledError.code
-            }
-            is HandledError.UnExpected -> {
-                // TODO send event to analytics, make flow decisions, retries, other navigation, etc.
-                handledError.message + ": " + handledError.code
-            }
-            is HandledError.Unknown -> {
-                // TODO send event to analytics, make flow decisions, retries, other navigation, etc.
-                handledError.message + ": " + handledError.code
-            }
-        }
-
-        materialAlertDialogBuilder
-            .setTitle(requireContext().getString(R.string.ups_title))
-            .setMessage(message)
-            .setPositiveButton(requireContext().getString(R.string.accept)) { _, _ -> }
-            .show()
     }
 
     private fun initSearchView() {

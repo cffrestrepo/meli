@@ -30,7 +30,7 @@ class ProductsFragment : Fragment() {
         }
 
         binding.buttonDetail.setOnClickListener {
-            findNavController().navigate(R.id.action_ProductsFragment_to_detailFragment)
+            findNavController().navigate(R.id.action_ProductsFragment_to_DetailFragment)
         }
     }
 }

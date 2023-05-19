@@ -32,11 +32,4 @@ class DetailFragment : Fragment() {
             findNavController().navigate(R.id.action_DetailFragment_to_ProductsFragment)
         }
     }
-
-    companion object {
-        fun newInstance(param1: String, param2: String) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {}
-            }
-    }
 }

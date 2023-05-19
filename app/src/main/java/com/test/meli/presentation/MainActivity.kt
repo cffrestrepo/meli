@@ -8,6 +8,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toolbar
 import com.test.meli.R
 import com.test.meli.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +37,15 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.toolbar.setNavigationOnClickListener {
+            // Handle the back button event and return to override
+            // the default behavior the same way as the OnBackPressedCallback.
+            // TODO(reason: handle custom back behavior here if desired.)
+
+            // If no custom behavior was handled perform the default action.
+            navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

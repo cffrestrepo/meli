@@ -3,11 +3,12 @@
     <string name="action_permissions">Permisos</string>
     <string name="search">Buscar</string>
     <string name="empty_search">Ups, el campo esta vacio.</string>
-    <string name="search_fragment_label">Que producto deseas buscar ?</string>
+    <string name="search_fragment_label">¿Qué producto deseas buscar?</string>
     <string name="products_fragment_label">Resultados de tu busqueda !</string>
     <string name="detail_fragment_label">Este es tu producto</string>
     <string name="ups_title">Ups !</string>
     <string name="accept">Aceptar</string>
+    <string name="title_preview_search">Busqueda anterior</string>
 
     <string name="next">Next</string>
     <string name="previous">Previous</string>
