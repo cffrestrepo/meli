@@ -6,5 +6,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_secondary">#f1f1ec</color>
     <color name="black">#FF000000</color>
-
+    <color name="gray_icon">#EBE8E8</color>
 </resources>

@@ -8,9 +8,11 @@ import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.test.meli.R
 import com.test.meli.databinding.FragmentSearchBinding
+import com.test.meli.presentation.adapters.ProductsAdapter
 import com.test.meli.presentation.events.SearchEvents
 import com.test.meli.presentation.states.SearchScreenStates
 import com.test.meli.presentation.viewmodel.SearchViewModel
@@ -22,6 +24,12 @@ class SearchFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSearchBinding
     lateinit var viewModel: SearchViewModel
+    private val productsAdapter: ProductsAdapter by lazy {
+        ProductsAdapter()
+    }
+
+    private var productsPreviewResultsFiltered: List<ResultsModel> = listOf()
+    private var productsPreviewResults: List<ResultsModel> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,15 +42,25 @@ class SearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observer()
+        initViews()
         initSearchView()
+        observer()
+        initEvent()
+    }
+
+    private fun initEvent() {
+        viewModel.postEvent(SearchEvents.InitEvent)
     }
 
     private fun observer() {
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is SearchScreenStates.DataLoadedState -> {
-                    findNavController().navigate(R.id.action_SearchFragment_to_ProductsFragment)
+                is SearchScreenStates.NavigateToProductsState -> {
+                    if (state.data) {
+                        setEmptySearch()
+                        findNavController().navigate(R.id.action_SearchFragment_to_ProductsFragment)
+                        viewModel.postEvent(SearchEvents.InactiveNavigateToProductsEvent)
+                    }
                 }
                 is SearchScreenStates.HandledErrorState -> {
                     handledError(state.error)
@@ -57,8 +75,44 @@ class SearchFragment : BaseFragment() {
         }
     }
 
-    private fun loadProductsPreviewSearch(data: List<ResultsModel>) {
+    private fun initViews() {
+        with(binding.recyclerviewProducts) {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = productsAdapter
+        }
+    }
 
+    /***
+     * Shows the list of products from the last search
+     */
+    private fun loadProductsPreviewSearch(data: List<ResultsModel>) {
+        productsPreviewResults = data
+        productsPreviewResultsFiltered = data
+        productsAdapter.submitList(productsPreviewResultsFiltered)
+
+        if (data.isNotEmpty()) {
+            visiblePreviewResults(true)
+        }
+    }
+
+    private fun visiblePreviewResults(isVisible: Boolean) {
+        if (isVisible) {
+            with(binding) {
+                imgWhitOutResults.isVisible = false
+                tvTitlePreviewResult.isVisible = true
+                recyclerviewProducts.isVisible = true
+            }
+        } else {
+            with(binding) {
+                imgWhitOutResults.isVisible = true
+                tvTitlePreviewResult.isVisible = false
+                recyclerviewProducts.isVisible = false
+            }
+        }
+    }
+
+    private fun setEmptySearch() {
+        binding.searchView.setQuery("", false)
     }
 
     private fun initSearchView() {
@@ -78,7 +132,24 @@ class SearchFragment : BaseFragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // TODO we can search the previous results
+                newText?.let {
+                    productsPreviewResultsFiltered = if (newText.isNotEmpty()) {
+                        productsPreviewResults.filter {
+                            it.title.contains(newText)
+                        }
+                    } else {
+                        productsPreviewResults
+                    }
+
+                    if (productsPreviewResultsFiltered.isNotEmpty()) {
+                        productsAdapter.submitList(productsPreviewResultsFiltered)
+                        productsAdapter.notifyDataSetChanged()
+                        visiblePreviewResults(true)
+                    } else {
+                        visiblePreviewResults(false)
+                    }
+                } ?: visiblePreviewResults(false)
+
                 return false
             }
         })

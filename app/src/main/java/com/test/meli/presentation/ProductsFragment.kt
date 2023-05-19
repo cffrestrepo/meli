@@ -38,14 +38,6 @@ class ProductsFragment : BaseFragment() {
         initViews()
         observer()
         initEvent()
-
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_ProductsFragment_to_SearchFragment)
-        }
-
-        binding.buttonDetail.setOnClickListener {
-            findNavController().navigate(R.id.action_ProductsFragment_to_DetailFragment)
-        }
     }
 
     private fun initEvent() {
