@@ -7,6 +7,9 @@
     <dimen name="margin_search_view_top">15dp</dimen>
     <dimen name="title_results_view_start">15dp</dimen>
     <dimen name="title_results_view_top">20dp</dimen>
+    <dimen name="card_view_elevation_product">10dp</dimen>
+    <dimen name="card_view_elevation_margin">10dp</dimen>
+    <dimen name="card_view_elevation_corner">4dp</dimen>
 
     <!-- Text size -->
     <dimen name="_18sp">18sp</dimen>

@@ -4,11 +4,12 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.test.meli.R
 import com.test.meli.data.network.HandledError
+import com.test.meli.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-open class FragmentBase : Fragment() {
+open class BaseFragment : Fragment() {
 
     @Inject
     lateinit var materialAlertDialogBuilder: MaterialAlertDialogBuilder

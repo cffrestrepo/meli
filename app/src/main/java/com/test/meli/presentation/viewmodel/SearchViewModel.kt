@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val fetchRemoteProductsUseCase: FetchRemoteProductsUseCase,
-    private val getAllProductUSeCase: GetAllProductsUseCase
+    private val getAllProductUseCase: GetAllProductsUseCase
 ) :
     BaseViewModel<SearchEvents, SearchScreenStates>() {
 
@@ -32,7 +32,7 @@ class SearchViewModel @Inject constructor(
      */
     private fun historyProducts() {
         viewModelScope.launch {
-            val result = getAllProductUSeCase.execute(Unit)
+            val result = getAllProductUseCase.execute(Unit)
             result.fold(functionLeft = { _ ->
                 // TODO this event should be flagged in crashlitycs
             }, functionRight = { data ->

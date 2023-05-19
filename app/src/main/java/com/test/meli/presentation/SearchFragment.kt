@@ -18,7 +18,7 @@ import com.test.meli.repository.models.ResultsModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : FragmentBase() {
+class SearchFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSearchBinding
     lateinit var viewModel: SearchViewModel

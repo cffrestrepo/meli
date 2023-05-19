@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 abstract class BaseViewModel<in Event, State> : ViewModel() {
 
-    protected val _screenState: MutableLiveData<State> = MutableLiveData()
+    private val _screenState: MutableLiveData<State> = MutableLiveData()
     val screenState: LiveData<State>
         get() = _screenState
 
@@ -17,12 +17,6 @@ abstract class BaseViewModel<in Event, State> : ViewModel() {
     protected fun setState(state: State) {
         state?.let {
             _screenState.value = it
-        }
-    }
-
-    protected fun postState(state: State) {
-        state?.let {
-            _screenState.postValue(it)
         }
     }
 

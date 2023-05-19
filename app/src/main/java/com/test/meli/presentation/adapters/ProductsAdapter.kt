@@ -1,0 +1,30 @@
+package com.test.meli.presentation.adapters
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import com.test.meli.databinding.HolderProductBinding
+import com.test.meli.presentation.adapters.viewholders.ProductViewHolder
+import com.test.meli.repository.models.ResultsModel
+
+class ProductsAdapter : ListAdapter<ResultsModel, ProductViewHolder>(DIFF_CALLBACK) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
+        HolderProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
+
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) =
+        holder.bind(getItem(position))
+
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ResultsModel>() {
+            override fun areItemsTheSame(oldItem: ResultsModel, newItem: ResultsModel): Boolean =
+                oldItem == newItem
+
+            override fun areContentsTheSame(oldItem: ResultsModel, newItem: ResultsModel): Boolean =
+                oldItem.title == newItem.title
+        }
+    }
+}
