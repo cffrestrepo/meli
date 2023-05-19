@@ -9,7 +9,7 @@
         android:id="@+id/SearchFragment"
         android:name="com.test.meli.presentation.SearchFragment"
         android:label="@string/search_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_search">
 
         <action
             android:id="@+id/action_SearchFragment_to_ProductsFragment"
@@ -19,13 +19,13 @@
         android:id="@+id/ProductsFragment"
         android:name="com.test.meli.presentation.ProductsFragment"
         android:label="@string/products_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_products">
 
         <action
             android:id="@+id/action_ProductsFragment_to_SearchFragment"
             app:destination="@id/SearchFragment" />
         <action
-            android:id="@+id/action_ProductsFragment_to_detailFragment"
+            android:id="@+id/action_ProductsFragment_to_DetailFragment"
             app:destination="@id/DetailFragment" />
     </fragment>
     <fragment

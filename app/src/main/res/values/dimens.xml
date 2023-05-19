@@ -1,3 +1,13 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <!-- Spaces -->
+    <dimen name="margin">0dp</dimen>
+    <dimen name="padding_search_view">4dp</dimen>
+    <dimen name="margin_search_view_end">8dp</dimen>
+    <dimen name="margin_search_view_start">8dp</dimen>
+    <dimen name="margin_search_view_top">15dp</dimen>
+    <dimen name="title_results_view_start">15dp</dimen>
+    <dimen name="title_results_view_top">20dp</dimen>
+
+    <!-- Text size -->
+    <dimen name="_18sp">18sp</dimen>
 </resources>

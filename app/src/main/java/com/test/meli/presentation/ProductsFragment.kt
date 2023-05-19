@@ -7,18 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.test.meli.R
-import com.test.meli.databinding.FragmentSecondBinding
+import com.test.meli.databinding.FragmentProductsBinding
 
 class ProductsFragment : Fragment() {
 
-    lateinit var binding : FragmentSecondBinding
+    lateinit var binding: FragmentProductsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false)
+        binding = FragmentProductsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,7 +30,7 @@ class ProductsFragment : Fragment() {
         }
 
         binding.buttonDetail.setOnClickListener {
-            findNavController().navigate(R.id.action_ProductsFragment_to_detailFragment)
+            findNavController().navigate(R.id.action_ProductsFragment_to_DetailFragment)
         }
     }
 }
