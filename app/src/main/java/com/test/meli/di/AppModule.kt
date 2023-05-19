@@ -2,6 +2,7 @@ package com.test.meli.di
 
 import android.content.Context
 import androidx.room.Room
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.test.meli.commons.Constants
 import com.test.meli.commons.Constants.Companion.BASE_URL
 import com.test.meli.data.local.database.MarketDb
@@ -15,7 +16,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
@@ -77,3 +81,13 @@ abstract class RepositoryModule {
     @Binds
     abstract fun provideProductRepositoryImpl(repository: ProductRepositoryImpl): ProductRepositorySource
 }
+
+@Module
+@InstallIn(ActivityComponent::class)
+object presentationModule {
+
+    @Provides
+    fun materialAlertDialogBuilder(@ActivityContext context: Context): MaterialAlertDialogBuilder =
+        MaterialAlertDialogBuilder(context)
+}
+

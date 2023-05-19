@@ -4,19 +4,40 @@ import androidx.lifecycle.viewModelScope
 import com.test.meli.presentation.events.SearchEvents
 import com.test.meli.presentation.states.SearchScreenStates
 import com.test.meli.usecases.FetchRemoteProductsUseCase
+import com.test.meli.usecases.GetAllProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val fetchRemoteProductsUseCase: FetchRemoteProductsUseCase) :
+class SearchViewModel @Inject constructor(
+    private val fetchRemoteProductsUseCase: FetchRemoteProductsUseCase,
+    private val getAllProductUSeCase: GetAllProductsUseCase
+) :
     BaseViewModel<SearchEvents, SearchScreenStates>() {
 
     override fun manageEvent(event: SearchEvents) {
         when (event) {
+            SearchEvents.InitEvent -> {
+                historyProducts()
+            }
             is SearchEvents.SearchEvent -> {
                 searchProducts(event.query)
             }
+        }
+    }
+
+    /***
+     *  The last displayed products are loaded
+     */
+    private fun historyProducts() {
+        viewModelScope.launch {
+            val result = getAllProductUSeCase.execute(Unit)
+            result.fold(functionLeft = { _ ->
+                // TODO this event should be flagged in crashlitycs
+            }, functionRight = { data ->
+                setState(SearchScreenStates.HistoryProductsLoadedState(data))
+            })
         }
     }
 

@@ -1,3 +1,5 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin">0dp</dimen>
+    <dimen name="padding_search_view">4dp</dimen>
+    <dimen name="margin_search_view">8dp</dimen>
 </resources>
