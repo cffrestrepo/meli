@@ -13,4 +13,5 @@
     <string name="nick_name">Nick</string>
     <string name="address">Dirección</string>
     <string name="city">Ciudad</string>
+    <string name="price">Valor</string>
 </resources>

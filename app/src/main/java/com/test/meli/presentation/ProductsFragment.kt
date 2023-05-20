@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
+import com.test.meli.R
+import com.test.meli.commons.Constants
 import com.test.meli.databinding.FragmentProductsBinding
 import com.test.meli.presentation.adapters.ProductsAdapter
 import com.test.meli.presentation.events.ProductEvents
@@ -77,6 +80,8 @@ class ProductsFragment : BaseFragment() {
     }
 
     private fun goToProductDetail(product: ResultsModel) {
-        Toast.makeText(requireContext(), product.title, Toast.LENGTH_LONG).show()
+        val bundle = Bundle()
+        bundle.putParcelable(Constants.PRODUCT, product)
+        findNavController().navigate(R.id.action_ProductsFragment_to_DetailFragment, bundle)
     }
 }

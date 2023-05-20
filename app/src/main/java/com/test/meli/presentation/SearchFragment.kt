@@ -161,7 +161,6 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun goToProductDetail(product: ResultsModel) {
-        // val bundle = bundleOf(PRODUCT to product)
         val bundle = Bundle()
         bundle.putParcelable(PRODUCT, product)
         findNavController().navigate(R.id.action_SearchFragment_to_DetailFragment, bundle)
