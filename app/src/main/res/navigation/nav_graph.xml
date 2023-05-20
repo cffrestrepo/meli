@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_SearchFragment_to_ProductsFragment"
             app:destination="@id/ProductsFragment" />
+        <action
+            android:id="@+id/action_SearchFragment_to_DetailFragment"
+            app:destination="@id/DetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/ProductsFragment"
@@ -36,5 +39,13 @@
         <action
             android:id="@+id/action_DetailFragment_to_ProductsFragment"
             app:destination="@id/ProductsFragment" />
+        <action
+            android:id="@+id/action_DetailFragment_to_SearchFragment"
+            app:destination="@id/SearchFragment" />
+        <argument
+            android:name="product"
+            android:defaultValue="@null"
+            app:argType="com.test.meli.repository.models.ResultsModel"
+            app:nullable="true" />
     </fragment>
 </navigation>

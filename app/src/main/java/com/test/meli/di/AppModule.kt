@@ -3,6 +3,8 @@ package com.test.meli.di
 import android.content.Context
 import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.squareup.picasso.OkHttp3Downloader
+import com.squareup.picasso.Picasso
 import com.test.meli.commons.Constants
 import com.test.meli.commons.Constants.Companion.BASE_URL
 import com.test.meli.data.local.database.MarketDb
@@ -24,6 +26,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -48,8 +51,17 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun getRetrofitInstance(): Retrofit {
-        return Retrofit.Builder().baseUrl(BASE_URL)
+    fun getOkHttpInstance(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun getRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
@@ -57,6 +69,12 @@ object AppModule {
     @Provides
     fun getRetrofitServiceInterface(retrofit: Retrofit): RetrofitServicesInterface =
         retrofit.create(RetrofitServicesInterface::class.java)
+
+    @Singleton
+    @Provides
+    fun getPicassoDownloader(okHttpClient: OkHttpClient): OkHttp3Downloader {
+        return OkHttp3Downloader(okHttpClient)
+    }
 
     @Provides
     fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
@@ -89,5 +107,14 @@ object presentationModule {
     @Provides
     fun materialAlertDialogBuilder(@ActivityContext context: Context): MaterialAlertDialogBuilder =
         MaterialAlertDialogBuilder(context)
+
+    @Provides
+    fun getPicasso(@ActivityContext context: Context, downloader: OkHttp3Downloader): Picasso {
+        return Picasso.Builder(context)
+            .downloader(downloader)
+            .indicatorsEnabled(true)
+            .loggingEnabled(true)
+            .build()
+    }
 }
 
