@@ -1,5 +1,6 @@
 package com.test.meli.presentation
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import com.test.meli.R
+import com.test.meli.commons.Constants.Companion.GREEN_BACK
 import com.test.meli.commons.Constants.Companion.PRODUCT
+import com.test.meli.commons.Constants.Companion.RED_BACK
 import com.test.meli.databinding.FragmentSearchBinding
 import com.test.meli.presentation.adapters.ProductsAdapter
 import com.test.meli.presentation.events.SearchEvents
+import com.test.meli.commons.Extensions.withColor
+import com.test.meli.commons.PermissionManager
 import com.test.meli.presentation.states.SearchScreenStates
 import com.test.meli.presentation.viewmodel.SearchViewModel
 import com.test.meli.repository.models.ResultsModel
@@ -40,6 +45,7 @@ class SearchFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        permissionManager = PermissionManager.from(this)
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,6 +55,7 @@ class SearchFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initSearchView()
+        observerBase()
         observer()
         initEvent()
     }
@@ -164,5 +171,17 @@ class SearchFragment : BaseFragment() {
         val bundle = Bundle()
         bundle.putParcelable(PRODUCT, product)
         findNavController().navigate(R.id.action_SearchFragment_to_DetailFragment, bundle)
+    }
+
+    override fun successPermission(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .withColor(Color.parseColor(GREEN_BACK))
+            .show()
+    }
+
+    override fun errorPermission(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .withColor(Color.parseColor(RED_BACK))
+            .show()
     }
 }

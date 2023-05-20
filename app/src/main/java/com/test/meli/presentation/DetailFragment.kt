@@ -1,22 +1,26 @@
 package com.test.meli.presentation
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import com.test.meli.R
 import com.test.meli.commons.Constants
+import com.test.meli.commons.Constants.Companion.GREEN_BACK
 import com.test.meli.commons.Constants.Companion.PRODUCT
+import com.test.meli.commons.Constants.Companion.RED_BACK
 import com.test.meli.databinding.FragmentDetailBinding
+import com.test.meli.commons.Extensions.withColor
+import com.test.meli.commons.PermissionManager
 import com.test.meli.repository.models.ResultsModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailFragment : Fragment() {
+class DetailFragment : BaseFragment() {
 
     @Inject
     lateinit var picasso: Picasso
@@ -31,6 +35,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        permissionManager = PermissionManager.from(this)
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,6 +44,7 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         product = arguments?.getParcelable(PRODUCT)
         initViews()
+        observerBase()
     }
 
     private fun initViews() {
@@ -94,5 +100,17 @@ class DetailFragment : Fragment() {
                 .placeholder(R.drawable.search_image)
                 .error(R.drawable.broken_image).into(binding.imgIcon)
         }
+    }
+
+    override fun successPermission(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .withColor(Color.parseColor(GREEN_BACK))
+            .show()
+    }
+
+    override fun errorPermission(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .withColor(Color.parseColor(RED_BACK))
+            .show()
     }
 }
