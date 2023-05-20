@@ -21,18 +21,96 @@
                 android:id="@+id/img_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_view_image_margin"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/text_tile"
+                android:id="@+id/text_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_view_title_margin_start"
+                android:ellipsize="end"
+                android:fadeScrollbars="false"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/name_product"
+                android:textSize="@dimen/_14sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/img_icon"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/img_icon" />
+
+            <TextView
+                android:id="@+id/text_title_des"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_view_title_margin_start"
+                android:textSize="@dimen/_12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_icon"
+                app:layout_constraintTop_toBottomOf="@id/text_title" />
+
+            <TextView
+                android:id="@+id/text_title_nick_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_view_title_margin_start"
+                android:layout_marginTop="@dimen/card_view_title_margin_top"
+                android:ellipsize="end"
+                android:fadeScrollbars="false"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/nick_name"
+                android:textSize="@dimen/_14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_icon"
+                app:layout_constraintTop_toBottomOf="@id/text_title_des" />
+
+            <TextView
+                android:id="@+id/text_title_text_title_nick_name_des"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_view_title_margin_start"
+                android:textSize="@dimen/_12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_icon"
+                app:layout_constraintTop_toBottomOf="@id/text_title_nick_name" />
+
+            <TextView
+                android:id="@+id/text_title_city"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_view_title_margin_start"
+                android:layout_marginTop="@dimen/card_view_title_margin_top"
+                android:ellipsize="end"
+                android:fadeScrollbars="false"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/city"
+                android:textSize="@dimen/_14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_icon"
+                app:layout_constraintTop_toBottomOf="@id/text_title_text_title_nick_name_des" />
+
+            <TextView
+                android:id="@+id/text_title_city_des"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_view_title_margin_start"
+                android:paddingBottom="@dimen/card_view_address_padding_bottom"
+                android:textSize="@dimen/_12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_icon"
+                app:layout_constraintTop_toBottomOf="@id/text_title_city" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

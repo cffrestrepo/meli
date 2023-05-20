@@ -13,7 +13,7 @@ object ProductMapper {
                 thumbnail = it.thumbnail,
                 price = it.price,
                 nickname = it.seller?.nickname ?: "",
-                address = it.price,
+                address = it.address?.address ?: "",
                 city = it.address?.city_name ?: ""
             )
         }
