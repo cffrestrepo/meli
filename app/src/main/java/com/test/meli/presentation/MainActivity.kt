@@ -8,14 +8,17 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.test.meli.R
 import com.test.meli.databinding.ActivityMainBinding
+import com.test.meli.presentation.events.SharedEvents
+import com.test.meli.presentation.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    lateinit var viewModel: SharedViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
@@ -24,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this)[SharedViewModel::class.java]
 
         initView()
         setupActionBarNavController()
@@ -55,7 +60,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_permission_camera -> {
+                viewModel.postEvent(SharedEvents.grantedPermimssionCameraEvent)
+                true
+            }
+            R.id.action_permission_storage -> {
+                viewModel.postEvent(SharedEvents.grantedPermimssionStoreEvent)
+                true
+            }
+            R.id.action_permission_location -> {
+                viewModel.postEvent(SharedEvents.grantedPermimssionLocationEvent)
+                true
+            }
+            R.id.action_permission_read_write -> {
+                viewModel.postEvent(SharedEvents.grantedPermimssionAllEvent)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

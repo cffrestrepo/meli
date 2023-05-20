@@ -1,20 +1,25 @@
 package com.test.meli.presentation
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import com.test.meli.R
 import com.test.meli.commons.Constants
+import com.test.meli.commons.Constants.Companion.GREEN_BACK
+import com.test.meli.commons.Constants.Companion.RED_BACK
 import com.test.meli.databinding.FragmentProductsBinding
 import com.test.meli.presentation.adapters.ProductsAdapter
 import com.test.meli.presentation.events.ProductEvents
+import com.test.meli.commons.Extensions.withColor
+import com.test.meli.commons.PermissionManager
 import com.test.meli.presentation.states.ProductStates
 import com.test.meli.presentation.viewmodel.ProductsViewModel
 import com.test.meli.repository.models.ResultsModel
@@ -36,6 +41,7 @@ class ProductsFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        permissionManager = PermissionManager.from(this)
         viewModel = ViewModelProvider(this)[ProductsViewModel::class.java]
         binding = FragmentProductsBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,6 +50,7 @@ class ProductsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        observerBase()
         observer()
         initEvent()
     }
@@ -83,5 +90,17 @@ class ProductsFragment : BaseFragment() {
         val bundle = Bundle()
         bundle.putParcelable(Constants.PRODUCT, product)
         findNavController().navigate(R.id.action_ProductsFragment_to_DetailFragment, bundle)
+    }
+
+    override fun successPermission(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .withColor(Color.parseColor(GREEN_BACK))
+            .show()
+    }
+
+    override fun errorPermission(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .withColor(Color.parseColor(RED_BACK))
+            .show()
     }
 }

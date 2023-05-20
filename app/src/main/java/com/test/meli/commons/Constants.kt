@@ -13,6 +13,10 @@ class Constants {
         const val HTTP = "http://"
         const val HTTPS = "https://"
 
+        // COLOR
+        const val GREEN_BACK = "#09AF00"
+        const val RED_BACK = "#B00020"
+
         // RED
         const val BAD_REQUEST = 400
         const val INTERNAL_SERVER = 500

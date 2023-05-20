@@ -1,6 +1,14 @@
 <resources>
+    <!-- App -->
     <string name="app_name">Meli</string>
-    <string name="action_permissions">Permisos</string>
+
+    <!-- Permissions -->
+    <string name="action_permission_camera">Permiso Camara</string>
+    <string name="action_permission_storage">Permiso Almacenamiento</string>
+    <string name="action_permission_location">Permiso Location</string>
+    <string name="action_permission_read_write">Permiso Lectura y escritura</string>
+
+    <!-- Views -->
     <string name="search">Buscar</string>
     <string name="empty_search">Ups, el campo esta vacio.</string>
     <string name="search_fragment_label">¿Qué producto deseas buscar?</string>
@@ -14,4 +22,7 @@
     <string name="address">Dirección</string>
     <string name="city">Ciudad</string>
     <string name="price">Valor</string>
+    <string name="dialog_permission_title">Permiso requerido</string>
+    <string name="dialog_permission_default_message">se requiere el permiso</string>
+    <string name="dialog_permission_button_positive">OK</string>
 </resources>
