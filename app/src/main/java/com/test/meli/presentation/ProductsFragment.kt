@@ -15,8 +15,10 @@ import com.test.meli.presentation.events.ProductEvents
 import com.test.meli.presentation.states.ProductStates
 import com.test.meli.presentation.viewmodel.ProductsViewModel
 import com.test.meli.repository.models.ResultsModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProductsFragment : BaseFragment() {
 
     @Inject

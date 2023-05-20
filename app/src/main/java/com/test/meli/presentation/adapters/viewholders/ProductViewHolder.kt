@@ -40,4 +40,3 @@ class ProductViewHolder(private val binding: HolderProductBinding, private val p
         }
     }
 }
- 
