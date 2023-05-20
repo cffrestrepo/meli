@@ -10,6 +10,8 @@ class Constants {
 
         // RETROFIT
         const val BASE_URL = "https://api.mercadolibre.com/"
+        const val HTTP = "http://"
+        const val HTTPS = "https://"
 
         // RED
         const val BAD_REQUEST = 400
