@@ -21,12 +21,12 @@
                 android:id="@+id/img_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_view_image_margin"
+                android:layout_marginStart="@dimen/card_view_image_margin_start"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@id/text_title_city_des"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="@id/text_title" />
 
             <TextView
                 android:id="@+id/text_title"
@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/card_view_title_margin_start"
                 android:ellipsize="end"
+                android:layout_marginTop="@dimen/title_results_view_margin_top"
                 android:fadeScrollbars="false"
                 android:lines="1"
                 android:maxLines="1"
@@ -43,7 +44,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/img_icon"
-                app:layout_constraintTop_toTopOf="@id/img_icon" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_title_des"
@@ -110,7 +111,8 @@
                 android:textSize="@dimen/_12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/img_icon"
-                app:layout_constraintTop_toBottomOf="@id/text_title_city" />
+                app:layout_constraintTop_toBottomOf="@id/text_title_city"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
