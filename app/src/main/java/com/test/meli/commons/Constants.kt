@@ -23,5 +23,8 @@ class Constants {
         // MESSAGES
         const val UNEXPECTED_MESSAGE = "Ups, ocurrio un error inesperado, código: $UNEXPECTED"
         const val UNKNOWN_MESSAGE_SERVER = "El servidor no entrego resultados, código: $UNKNOWN"
+
+        // BUNDLE
+        const val PRODUCT = "product"
     }
 }

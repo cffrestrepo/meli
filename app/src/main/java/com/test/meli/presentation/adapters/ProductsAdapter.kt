@@ -4,18 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.squareup.picasso.Picasso
 import com.test.meli.databinding.HolderProductBinding
 import com.test.meli.presentation.adapters.viewholders.ProductViewHolder
 import com.test.meli.repository.models.ResultsModel
 
-class ProductsAdapter : ListAdapter<ResultsModel, ProductViewHolder>(DIFF_CALLBACK) {
+class ProductsAdapter(
+    private val productSetOnClickListener: (product: ResultsModel) -> Unit,
+    private val picasso: Picasso
+) :
+    ListAdapter<ResultsModel, ProductViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        HolderProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        HolderProductBinding.inflate(LayoutInflater.from(parent.context), parent, false), picasso
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) =
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), productSetOnClickListener)
 
 
     companion object {

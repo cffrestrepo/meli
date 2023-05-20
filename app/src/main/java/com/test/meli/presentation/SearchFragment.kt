@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import com.test.meli.R
+import com.test.meli.commons.Constants.Companion.PRODUCT
 import com.test.meli.databinding.FragmentSearchBinding
 import com.test.meli.presentation.adapters.ProductsAdapter
 import com.test.meli.presentation.events.SearchEvents
@@ -18,14 +20,17 @@ import com.test.meli.presentation.states.SearchScreenStates
 import com.test.meli.presentation.viewmodel.SearchViewModel
 import com.test.meli.repository.models.ResultsModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment() {
 
+    @Inject
+    lateinit var picasso: Picasso
     private lateinit var binding: FragmentSearchBinding
     lateinit var viewModel: SearchViewModel
     private val productsAdapter: ProductsAdapter by lazy {
-        ProductsAdapter()
+        ProductsAdapter(productSetOnClickListener = ::goToProductDetail, picasso = picasso)
     }
 
     private var productsPreviewResultsFiltered: List<ResultsModel> = listOf()
@@ -153,5 +158,12 @@ class SearchFragment : BaseFragment() {
                 return false
             }
         })
+    }
+
+    private fun goToProductDetail(product: ResultsModel) {
+        // val bundle = bundleOf(PRODUCT to product)
+        val bundle = Bundle()
+        bundle.putParcelable(PRODUCT, product)
+        findNavController().navigate(R.id.action_SearchFragment_to_DetailFragment, bundle)
     }
 }

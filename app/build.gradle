@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+    id 'kotlin-parcelize'
 }
 
 ext {
@@ -13,6 +15,7 @@ ext {
     hilt_version = "2.40.1"
     hilt_compiler = "1.0.0"
     retrofit_version = "2.9.0"
+    picasso = "2.8"
 }
 
 android {
@@ -84,6 +87,14 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Picasso
+    implementation "com.squareup.picasso:picasso:$picasso"
+
+    // Okhttp3
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
 
     // Test
     testImplementation "junit:junit:$junit"
