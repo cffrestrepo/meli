@@ -37,12 +37,12 @@ open class BaseFragment : Fragment() {
                     viewModelShared.postEvent(SharedEvents.grantedPermimssionCallSuccessEvent)
                     permissionManager
                         .request(PermissionType.MandatoryForFeatureOne)
-                        .rationale("We require to demonstrate that we can request two permissions at once")
+                        .rationale(requireContext().getString(R.string.action_permission_write_location))
                         .checkPermission { granted ->
                             if (granted) {
-                                successPermission("YES! Now I can access Storage and Location!")
+                                successPermission(requireContext().getString(R.string.action_permission_write_location_success))
                             } else {
-                                errorPermission("Still missing at least one permission :(")
+                                errorPermission(requireContext().getString(R.string.action_permission_write_location_failed))
                             }
                         }
                 }
@@ -50,12 +50,12 @@ open class BaseFragment : Fragment() {
                     viewModelShared.postEvent(SharedEvents.grantedPermimssionCallSuccessEvent)
                     permissionManager
                         .request(PermissionType.Camera)
-                        .rationale("We need permission to see your beautiful face")
+                        .rationale(requireContext().getString(R.string.action_permission_camera_request))
                         .checkPermission { granted ->
                             if (granted) {
-                                successPermission("We can see your face :)")
+                                successPermission(requireContext().getString(R.string.action_permission_camera_success))
                             } else {
-                                errorPermission("We couldn't access the camera :(")
+                                errorPermission(requireContext().getString(R.string.action_permission_camera_failed))
                             }
                         }
                 }
@@ -63,12 +63,12 @@ open class BaseFragment : Fragment() {
                     viewModelShared.postEvent(SharedEvents.grantedPermimssionCallSuccessEvent)
                     permissionManager
                         .request(PermissionType.Location)
-                        .rationale("We need permission to your position")
+                        .rationale(requireContext().getString(R.string.action_permission_location_request))
                         .checkPermission { granted ->
                             if (granted) {
-                                successPermission("sabemos tu ubocacion)")
+                                successPermission(requireContext().getString(R.string.action_permission_location_success))
                             } else {
-                                errorPermission("Wesaber tu ubicacion")
+                                errorPermission(requireContext().getString(R.string.action_permission_location_failed))
                             }
                         }
                 }
@@ -76,12 +76,12 @@ open class BaseFragment : Fragment() {
                     viewModelShared.postEvent(SharedEvents.grantedPermimssionCallSuccessEvent)
                     permissionManager
                         .request(PermissionType.Storage)
-                        .rationale("We need permission to your storage")
+                        .rationale(requireContext().getString(R.string.action_permission_storage_request))
                         .checkPermission { granted ->
                             if (granted) {
-                                successPermission("tenemos acceso al almacenamiento")
+                                successPermission(requireContext().getString(R.string.action_permission_storage_success))
                             } else {
-                                errorPermission("We no podemos almacenar")
+                                errorPermission(requireContext().getString(R.string.action_permission_storage_failed))
                             }
                         }
                 }

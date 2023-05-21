@@ -1,12 +1,24 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Meli</string>
+    <string name="app_name">Mercado libre</string>
 
     <!-- Permissions -->
     <string name="action_permission_camera">Permiso Camara</string>
     <string name="action_permission_storage">Permiso Almacenamiento</string>
-    <string name="action_permission_location">Permiso Location</string>
-    <string name="action_permission_read_write">Permiso Lectura y escritura</string>
+    <string name="action_permission_location">Permiso Ubicación</string>
+    <string name="action_permission_location_write">Permiso de escritura y ubicación</string>
+    <string name="action_permission_write_location">Permisos de escritura y ubicación</string>
+    <string name="action_permission_write_location_success">Perfecto ahora podemos acceder a la escritura y ubicación</string>
+    <string name="action_permission_write_location_failed">Ups! Permisos no otorgados,No podemos acceder a la escritura ni ubicación</string>
+    <string name="action_permission_camera_request">Permiso para acceder a la camara</string>
+    <string name="action_permission_camera_success">Perfecto ahora tenemos acceso a la camara</string>
+    <string name="action_permission_camera_failed">Ups! Permisos no otorgados,No podemos acceder a la camara</string>
+    <string name="action_permission_location_request">Permiso para acceder a la ubicación</string>
+    <string name="action_permission_location_success">Perfecto ahora podemos acceder a la ubicación</string>
+    <string name="action_permission_location_failed">Ups! Permisos no otorgados,No podemos acceder a la ubicación</string>
+    <string name="action_permission_storage_request">Permiso para acceder al almacenamiento</string>
+    <string name="action_permission_storage_success">Perfecto ahora podemos acceder al almacenamiento</string>
+    <string name="action_permission_storage_failed">Ups! Permisos no otorgados,No podemos acceder al almacenamiento</string>
 
     <!-- Views -->
     <string name="search">Buscar</string>

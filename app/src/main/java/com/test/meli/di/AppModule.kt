@@ -7,6 +7,7 @@ import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import com.test.meli.commons.Constants
 import com.test.meli.commons.Constants.Companion.BASE_URL
+import com.test.meli.commons.PermissionManager
 import com.test.meli.data.local.database.MarketDb
 import com.test.meli.data.remote.ProductDataRemoteImpl
 import com.test.meli.data.remote.RetrofitServicesInterface
@@ -81,7 +82,6 @@ object AppModule {
 
     @Provides
     fun providesProductMapper(): ProductMapper = ProductMapper
-
 }
 
 @Module
@@ -117,4 +117,3 @@ object presentationModule {
             .build()
     }
 }
-
