@@ -4,6 +4,9 @@ import com.test.meli.data.local.entities.ProductEntity
 import com.test.meli.data.remote.response.Results
 import com.test.meli.repository.models.ResultsModel
 
+/***
+ * Test class [ProductMapperTest]
+ */
 object ProductMapper {
 
     fun productResponseToProductEntity(products: List<Results>): List<ProductEntity> =

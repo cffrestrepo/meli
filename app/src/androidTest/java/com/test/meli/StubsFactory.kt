@@ -1,6 +1,5 @@
 package com.test.meli
 
-import com.google.gson.annotations.SerializedName
 import com.test.meli.data.local.entities.ProductEntity
 import com.test.meli.data.remote.response.Address
 import com.test.meli.data.remote.response.LookFor
@@ -21,6 +20,7 @@ fun createLooFor() = LookFor(
     results = listOf(createResults(), createResults())
 )
 
+fun createListResults() = listOf<Results>(createResults(), createResults())
 fun createResults() = Results(
     id = ID,
     title = PERRO,
