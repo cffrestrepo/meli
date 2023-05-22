@@ -12,6 +12,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+/***
+ * Test class [ProductDataRemoteImplTest]
+ */
 class ProductDataRemoteImpl @Inject constructor(
     private val retrofitServicesInterface: RetrofitServicesInterface,
     private val errorFactory: ErrorFactory
@@ -26,7 +29,7 @@ class ProductDataRemoteImpl @Inject constructor(
 
             call?.enqueue(object : Callback<LookFor> {
                 override fun onFailure(call: Call<LookFor>, throwable: Throwable) {
-                    val handledError = errorFactory.handledError(throwable)
+                    val handledError: HandledError = errorFactory.handledError(throwable)
                     continuation.resume(Either.Left(handledError), onCancellation = { })
                 }
 
