@@ -12,6 +12,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+/***
+ * Test class [ProductDataRemoteImplTest]
+ */
 class ProductDataRemoteImpl @Inject constructor(
     private val retrofitServicesInterface: RetrofitServicesInterface,
     private val errorFactory: ErrorFactory
