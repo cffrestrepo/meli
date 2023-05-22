@@ -17,6 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/***
+ * Test class [ProductRepositoryImplTest]
+ */
 class ProductRepositoryImpl @Inject constructor(
     private val productSource: ProductDao,
     private val productDataRemoteSource: ProductDataRemoteSource,
@@ -55,13 +58,12 @@ class ProductRepositoryImpl @Inject constructor(
                                 productMapper.productResponseToProductEntity(lookFor.results)
                             )
                         }
-                    }
-                        ?: Either.Left(
-                            HandledError.Unknown(
-                                UNKNOWN_MESSAGE_SERVER,
-                                code = UNKNOWN
-                            )
+                    } ?: Either.Left(
+                        HandledError.Unknown(
+                            UNKNOWN_MESSAGE_SERVER,
+                            code = UNKNOWN
                         )
+                    )
                 }
             )
         }
