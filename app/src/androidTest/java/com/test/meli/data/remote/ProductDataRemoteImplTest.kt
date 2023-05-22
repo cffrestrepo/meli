@@ -1,20 +1,22 @@
 package com.test.meli.data.remote
 
 import com.test.meli.PERRO
+import com.test.meli.commons.Constants
 import com.test.meli.commons.Either
 import com.test.meli.createLooFor
 import com.test.meli.data.network.ErrorFactory
+import com.test.meli.data.network.HandledError
 import com.test.meli.data.remote.response.LookFor
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import okhttp3.ResponseBody
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
+
 
 /***
  * Test class of [ProductDataRemoteImpl]
@@ -56,34 +58,61 @@ class ProductDataRemoteImplTest {
             val looFor = createLooFor()
             val query = PERRO
             val mockedCall = mockk<retrofit2.Call<LookFor>>()
-            val enqueue = object : Callback<LookFor> {
-                override fun onResponse(call: Call<LookFor>, response: Response<LookFor>) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onFailure(call: Call<LookFor>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-            }
 
             coEvery {
-                retrofitServicesInterface.getProductsBySearch(query)!!.enqueue(enqueue)
+                retrofitServicesInterface.getProductsBySearch(query)!!.enqueue(any())
             } answers {
                 val callback = args[0] as retrofit2.Callback<LookFor>
                 val response = retrofit2.Response.success(200, looFor)
 
                 callback.onResponse(mockedCall, response)
             }
-            /*
-            val deliveryAcceptedDetailsCallbackCaptor =
-                CapturingSlot<Callback<DeliveryAcceptedDetailResponse?>>()
-
-             */
 
             // WHEN
             val result = productDataRemoteImpl.getProductsBySearch(query)
 
             // VERIFY
             assert(result is Either.Right)
+
+            verifyOrder {
+                retrofitServicesInterface.getProductsBySearch(query)
+            }
+        }
+
+    @Test
+    fun `Given-a-call-to-getProductsBySearch-When-this-answer-is-correct-Then-it-gives-us-a-Either-Left`() =
+        runBlocking {
+            // GIVEN
+            val query = PERRO
+            val mockedCall = mockk<retrofit2.Call<LookFor>>()
+            val handledError = HandledError.UnExpected(
+                Constants.UNEXPECTED_MESSAGE,
+                code = Constants.UNEXPECTED
+            )
+
+            coEvery {
+                retrofitServicesInterface.getProductsBySearch(query)!!.enqueue(any())
+            } answers {
+                val callback = args[0] as retrofit2.Callback<LookFor>
+                val response: Response<Throwable> = retrofit2.Response.error<Throwable>(
+                    500,
+                    ResponseBody.create(null, "Error in the server")
+                )
+
+                callback.onFailure(mockedCall, response.body() ?: Exception())
+            }
+
+            every { errorFactory.handledError(any()) } returns handledError
+
+            // WHEN
+            val result = productDataRemoteImpl.getProductsBySearch(query)
+
+            // VERIFY
+            assert(result is Either.Left)
+
+            verifyOrder {
+                retrofitServicesInterface.getProductsBySearch(query)
+                errorFactory.handledError(any())
+            }
         }
 }

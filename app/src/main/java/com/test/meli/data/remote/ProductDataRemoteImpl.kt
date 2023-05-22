@@ -29,7 +29,7 @@ class ProductDataRemoteImpl @Inject constructor(
 
             call?.enqueue(object : Callback<LookFor> {
                 override fun onFailure(call: Call<LookFor>, throwable: Throwable) {
-                    val handledError = errorFactory.handledError(throwable)
+                    val handledError: HandledError = errorFactory.handledError(throwable)
                     continuation.resume(Either.Left(handledError), onCancellation = { })
                 }
 
