@@ -17,7 +17,6 @@ import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
 
-
 /***
  * Test class of [ProductDataRemoteImpl]
  */
@@ -39,13 +38,6 @@ class ProductDataRemoteImplTest {
             relaxUnitFun = true
         )
         productDataRemoteImpl = ProductDataRemoteImpl(retrofitServicesInterface, errorFactory)
-    }
-
-    private fun verifyAllMocks() {
-        confirmVerified(
-            retrofitServicesInterface,
-            errorFactory
-        )
     }
 
     @After
