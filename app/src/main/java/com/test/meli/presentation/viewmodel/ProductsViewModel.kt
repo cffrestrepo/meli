@@ -8,6 +8,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/***
+ * Test class [ProductsViewModelTest]
+ */
 @HiltViewModel
 class ProductsViewModel @Inject constructor(private val getAllProductsUseCase: GetAllProductsUseCase) :
     BaseViewModel<ProductEvents, ProductStates>() {
